@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const AutoresSchema = new mongoose.Schema({
-    nombre: { 
+    name: {
         type: String,
-        minlength:[10, 'El minimo es de 10'] 
+        required: [true, 'Por favor ingresa un nombre'],
+        minlength: [3, 'El minimo son 3 caracteres'],
+        unique: [true, 'Ya existe el autor']
     },
-    apellido: { type: String },
-    edad: {type: Number}
 }, { timestamps: true });
+
 module.exports.Autores = mongoose.model('Autores', AutoresSchema);
 

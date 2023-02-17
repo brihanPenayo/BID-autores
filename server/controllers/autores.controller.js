@@ -1,62 +1,57 @@
 const { Autores } = require("../models/autores.model");
 
-module.exports.index = (request, response) => {
-    response.json({
-        message: "Hello World"
-    });
-}
-
-module.exports.createAutores = async (request, response) => {
+module.exports.createAutor = async (req, res) => {
     try {
-        const { nombre, apellido, edad } = request.body;
-        autores = await Autores.create({
-            nombre,
-            apellido,
-            edad
+        let { name } = req.body;
+        name = name.trim();
+        const autor = await Autores.create({
+            name
         });
-        response.json(autores);
-    } catch (error) {
-        response.status(400);
-        response.json(error);
+        res.json(autor);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
     }
 }
 
-module.exports.getAll = async (request, response) => {
+module.exports.getAll = async (req, res) => {
     try {
-        const autores = await Autores.find({})
-        response.json(autores);
-    } catch (error) {
-        response.status(400);
-        response.json(error);
+        const autor = await Autores.find({})
+        res.json(autor);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
     }
 }
 
-module.exports.getPerson = async (request, response) => {
+module.exports.getAutor = async (req, res) => {
     try {
-        const autores = await Autores.findOne({ _id: request.params.id })
-        response.json(autores);
-    } catch (error) {
-        response.status(400);
-        response.json(error);
+        const autor = await Autores.findOne({ _id: req.params.id })
+        res.json(autor);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
     }
 }
 
-module.exports.updatePerson = async (request, response) => {
+module.exports.updateAutor = async (req, res) => {
+    let { name } = req.body;
+    name = name.trim();
     try {
-        const autores = await Autores.findOneAndUpdate({ _id: request.params.id }, request.body, { new: true })
-        response.json(autores);
-    } catch (error) {
-        response.status(400);
-        response.json(error);
+        const autor = await Autores.findOneAndUpdate({ _id: req.params.id }, { name }, { new: true })
+        res.json(autor);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
     }
 }
 
-module.exports.deletePerson = async (request, response) => {
+module.exports.deleteAutor = async (req, res) => {
     try {
-        const autores = await Autores.deleteOne({ _id: request.params.id })
-        response.json(autores);
-    } catch (error) {
-        response.status(400);
-        response.json(error);
+        const autor = await Autores.deleteOne({ _id: req.params.id })
+        res.json(autor);
+    } catch (err) {
+        res.status(400);
+        res.json(err);
     }
 }
