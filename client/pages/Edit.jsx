@@ -9,10 +9,10 @@ const Edit = () => {
     const [autor, setAutor] = useState(null)
     const navigate = useNavigate();
 
-    const updateAutor = async (name) => {
+    const updateAutor = async (e) => {
+        e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:8000/edit/${id}`, { name: name });
-            console.log(res);
+            const res = await axios.put(`http://localhost:8000/edit/${id}`, { name: autor });
             if (res.status === 200) {
                 alert("Correcto")
                 navigate("/")
@@ -40,7 +40,7 @@ const Edit = () => {
     return (
         <>
             <SubHeader actionTitle="Editar Autor" btnTxt="Volver" path="/" />
-            {autor && <Form btnTxt="Editar" initialValues={autor} handleSs={updateAutor} />}
+            {autor && <Form btnTxt="Editar" autor={autor} setAutor={setAutor} handleSubmit={updateAutor} />}
         </>
     )
 }
