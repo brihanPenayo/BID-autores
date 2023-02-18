@@ -18,8 +18,8 @@ const Edit = () => {
                 navigate("/")
             }
         } catch (error) {
-            console.log(error);
-            alert("error")
+            console.log(error.response)
+            alert(error.response.data)
         }
     }
 

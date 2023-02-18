@@ -16,8 +16,8 @@ const Create = () => {
                 setAutor("")
             }
         } catch (error) {
-            console.log(error);
-            alert("error")
+            console.log(error.response.data)
+            alert(error.response.data)
         }
     }
 
