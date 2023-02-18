@@ -8,21 +8,26 @@ const Edit = () => {
     const { id } = useParams();
     const [autor, setAutor] = useState(null)
     const navigate = useNavigate();
+    const [errors, setErrors] = useState()
 
     const updateAutor = async (e) => {
         e.preventDefault();
         try {
             const res = await axios.put(`http://localhost:8000/edit/${id}`, { name: autor });
             if (res.status === 200) {
+                setErrors("")
                 alert("Correcto")
                 navigate("/")
             }
         } catch (error) {
-            console.log(error.response)
-            alert(error.response.data)
+            if (error.response.data.code === 11000) {
+                setErrors("El Autor ya existe")
+            }
+            else {
+                setErrors(error.response.data.errors.name.message)
+            }
         }
     }
-
 
     useEffect(() => {
         const getAutors = async () => {
@@ -36,11 +41,10 @@ const Edit = () => {
         getAutors();
     }, [])
 
-
     return (
         <>
             <SubHeader actionTitle="Editar Autor" btnTxt="Volver" path="/" />
-            {autor && <Form btnTxt="Editar" autor={autor} setAutor={setAutor} handleSubmit={updateAutor} />}
+            {autor && <Form btnTxt="Editar" autor={autor} setAutor={setAutor} handleSubmit={updateAutor} errors={errors} />}
         </>
     )
 }

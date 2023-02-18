@@ -10,7 +10,7 @@ module.exports.createAutor = async (req, res) => {
         res.json(autor);
     } catch (err) {
         res.status(400);
-        res.json(err.message);
+        res.json(err);
     }
 }
 
@@ -38,7 +38,8 @@ module.exports.updateAutor = async (req, res) => {
     let { name } = req.body;
     name = name.trim();
     try {
-        const autor = await Autores.findOneAndUpdate({ _id: req.params.id }, { name }, { new: true }, {runValidators: true})
+        const autor = await Autores.findOneAndUpdate({ _id: req.params.id }, { name }, { new: true, runValidators: true })
+        res.status(200);
         res.json(autor);
     } catch (err) {
         res.status(400);
