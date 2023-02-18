@@ -24,7 +24,7 @@ const Create = () => {
     return (
         <>
             <SubHeader actionTitle="Añadir Autor" btnTxt="Volver" path="/" />
-            <Form btnTxt="Añadir" autor={autor} setAutor={setAutor} handleSs={createAutor} />
+            <Form btnTxt="Añadir" autor={autor} setAutor={setAutor} handleSubmit={createAutor} />
         </>
     )
 }

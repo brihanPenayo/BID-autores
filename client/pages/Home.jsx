@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Button } from '@mui/material';
 import SubHeader from '../components/SubHeader';
-import { Form, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [autors, setAutors] = useState([]);
@@ -10,7 +10,7 @@ const Home = () => {
   const handleBorrar = async e => {
     try {
       const res = axios.delete(`http://localhost:8000/delete/${e.target.id}`)
-      console.log(res)
+      alert("Autor Eliminado")
     } catch (error) {
       console.log(error)
     }
@@ -27,8 +27,6 @@ const Home = () => {
     }
     getAutors();
   }, [handleBorrar])
-
-
 
   return (
     <>
