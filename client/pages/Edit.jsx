@@ -1,12 +1,28 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Form from '../components/Form'
 import SubHeader from '../components/SubHeader'
 
 const Edit = () => {
     const { id } = useParams();
     const [autor, setAutor] = useState(null)
+    const navigate = useNavigate();
+
+    const updateAutor = async (name) => {
+        try {
+            const res = await axios.put(`http://localhost:8000/edit/${id}`, { name: name });
+            console.log(res);
+            if (res.status === 200) {
+                alert("Correcto")
+                navigate("/")
+            }
+        } catch (error) {
+            console.log(error);
+            alert("error")
+        }
+    }
+
 
     useEffect(() => {
         const getAutors = async () => {
@@ -24,7 +40,7 @@ const Edit = () => {
     return (
         <>
             <SubHeader actionTitle="Editar Autor" btnTxt="Volver" path="/" />
-            {autor != null && <Form btnTxt="Editar" initialValues={autor} />}
+            {autor && <Form btnTxt="Editar" initialValues={autor} handleSs={updateAutor} />}
         </>
     )
 }
